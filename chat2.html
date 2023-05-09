@@ -1,6 +1,6 @@
 <html>
 	test pagge
-	<body onload="myFunction()">
+
 <script>
     
 function initESW(gslbBaseURL,pdeploymentId,psiteid,pbbauthid,pfirstname,pLastName,pprodLst,pinBusinessHours,ppopUpChat,psupportSite) {
@@ -182,32 +182,23 @@ alert("Page is loaded 3");
 
     };
     
-function initializeEmbeddedServiceCall(deploymentId,siteid,bbauthid,firstname,lastName,prodLst,inBusinessHours,popUpChat,supportSite) {
-alert("Page is loaded 2");
+
     if (!window.embedded_svc) {
         var s = document.createElement('script');
         s.setAttribute('src', 'https://blackbaud--dev.my.salesforce.com/embeddedservice/5.0/esw.min.js');
         s.onload = function() {
+		   var prodLst="Payment Services,JustGiving,Blackbaud Analytics,Financial Edge,FIMS,GIFTS,Blackbaud Grantmaking (formerly GIFTS Online),Blackbaud Outcomes,Education Management Solutions (including ON Suite),Billing Management,Luminate Online,Online Express,Raiser's Edge,Payment Services 1,JustGiving 1,Blackbaud Analytics 1,Financial Edge 1,FIMS 1,GIFTS 1,Blackbaud Grantmaking (formerly GIFTS Online) 1,Blackbaud Outcomes 1,Education Management Solutions (including ON Suite) 1,Billing Management 1,Luminate Online 1,Online Express 1,Raiser's Edge 1,Payment Services  2,JustGiving  2,Blackbaud Analytics  2,Financial Edge  2,FIMS  2,GIFTS  2,Blackbaud Grantmaking (formerly GIFTS Online)  2,Blackbaud Outcomes  2,Education Management Solutions (including ON Suite)  2,Billing Management  2,Luminate Online  2,Online Express  2,Raiser's Edge";
+
 		alert("Page is loaded in initializeEmbeddedServiceCall onload ");
-            initESW(null,deploymentId,siteid,bbauthid,firstname,lastName,prodLst,inBusinessHours,popUpChat,supportSite);
+            initESW(null,'5720V00000158Lk','20202','dbcf7df4-d6b7-4296-8aaf-cbbf0610302f','Karya','Mert',prodLst,true,true,'5740');
         };
         document.body.appendChild(s);
     } else {
         initESW('https://service.force.com',deploymentId,siteid,bbauthid,firstname,lastName,prodLst,inBusinessHours,popUpChat,supportSite);
     }
-}
 
 
-function myFunction() {
-alert("Page is loaded 1");
-   var prodLst="Payment Services,JustGiving,Blackbaud Analytics,Financial Edge,FIMS,GIFTS,Blackbaud Grantmaking (formerly GIFTS Online),Blackbaud Outcomes,Education Management Solutions (including ON Suite),Billing Management,Luminate Online,Online Express,Raiser's Edge,Payment Services 1,JustGiving 1,Blackbaud Analytics 1,Financial Edge 1,FIMS 1,GIFTS 1,Blackbaud Grantmaking (formerly GIFTS Online) 1,Blackbaud Outcomes 1,Education Management Solutions (including ON Suite) 1,Billing Management 1,Luminate Online 1,Online Express 1,Raiser's Edge 1,Payment Services  2,JustGiving  2,Blackbaud Analytics  2,Financial Edge  2,FIMS  2,GIFTS  2,Blackbaud Grantmaking (formerly GIFTS Online)  2,Blackbaud Outcomes  2,Education Management Solutions (including ON Suite)  2,Billing Management  2,Luminate Online  2,Online Express  2,Raiser's Edge";
-   //Default Chat 
-    // initializeEmbeddedServiceCall('5720V00000158Lk','5730V0000019KWs','20202','dbcf7df4-d6b7-4296-8aaf-cbbf0610302f','Karya','Mert',prodLst,true,true);
-   initializeEmbeddedServiceCall('5720V00000158Lk','20202','dbcf7df4-d6b7-4296-8aaf-cbbf0610302f','Karya','Mert',prodLst,true,true,'5740');
-
-};
 
     </Script>
-</body>
 
     </html>
