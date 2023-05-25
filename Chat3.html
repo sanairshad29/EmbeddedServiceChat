@@ -1,0 +1,198 @@
+<html>
+	test pagge
+<script>
+    
+var initESW = function(gslbBaseURL,pdeploymentId,psiteid,pbbauthid,pfirstname,pLastName,pprodLst,pinBusinessHours,ppopUpChat,psupportSite) {
+alert("Page is loaded 3");
+        embedded_svc.settings.displayHelpButton = pinBusinessHours ; //Or false
+        embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
+        embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+        embedded_svc.settings.entryFeature = 'LiveAgent';
+        embedded_svc.settings.loadingText = 'Loading...'; //(Defaults to Loading)
+		    embedded_svc.settings.disabledMinimizedText = 'Support is Unavailable'; //(Defaults to Agent Offline)
+        embedded_svc.settings.defaultMinimizedText = "Ask Me Anything !";
+       
+     embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
+			alert("Page is loaded 4");
+			console.log('in directToButtonRouting :  '+embedded_svc.settings.extraPrechatFormDetails[11].value);
+            return embedded_svc.settings.extraPrechatFormDetails[11].value;
+        };
+    
+    //embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
+        //var prodLst="Payment Services,JustGiving,Blackbaud Analytics,Financial Edge,FIMS,GIFTS,Blackbaud Grantmaking (formerly GIFTS Online),Blackbaud Outcomes,Education Management Solutions (including ON Suite),Billing Management,Luminate Online,Online Express,Raiser's Edge,Payment Services 1,JustGiving 1,Blackbaud Analytics 1,Financial Edge 1,FIMS 1,GIFTS 1,Blackbaud Grantmaking (formerly GIFTS Online) 1,Blackbaud Outcomes 1,Education Management Solutions (including ON Suite) 1,Billing Management 1,Luminate Online 1,Online Express 1,Raiser's Edge 1,Payment Services  2,JustGiving  2,Blackbaud Analytics  2,Financial Edge  2,FIMS  2,GIFTS  2,Blackbaud Grantmaking (formerly GIFTS Online)  2,Blackbaud Outcomes  2,Education Management Solutions (including ON Suite)  2,Billing Management  2,Luminate Online  2,Online Express  2,Raiser's Edge";
+        var parameters = { siteid :psiteid, bbauthid:pbbauthid ,productsList: pprodLst,firstname:pfirstname,lastname:pLastName,supportSite:psupportSite};
+        embedded_svc.settings.prepopulatedPrechatFields = { FirstName: parameters.firstname, LastName: parameters.lastname , Chat_Site_Id__c : parameters.siteid , Chat_BB_Auth_ID__c : parameters.bbauthid , Chat_Products_List__c : parameters.productsList, Chat_Support_Site__c : parameters.supportSite}; //Sets the auto-population of pre-chat form fields
+    embedded_svc.settings.extraPrechatFormDetails = [{
+            "label": "Customer Site ID",
+            "value": parameters.siteid,
+            "displayToAgent": false,
+            "transcriptFields" : ["site_id__c"]
+          },
+          {
+            "label": "User Contact ID",
+            "value": parameters.siteid + parameters.bbauthid ,
+            "displayToAgent": false,
+            "transcriptFields" : ["User_Contact_Id__c"]
+          },
+          {
+            "label":"Product",
+            "displayToAgent": false,
+            "transcriptFields": ["Customer_selected_product__c"]
+          },
+          {
+            "label":"Issue",
+            "displayToAgent": false,
+            "transcriptFields": ["issue__c"]
+          },
+          {
+            "label":"Severity",
+            "displayToAgent": false,
+            "transcriptFields": ["severity__c"]
+          },
+          {
+            "label":"Status",
+            "displayToAgent": false
+          },
+          {
+            "label":"Origin",
+            "value": "Chat",
+            "displayToAgent": false
+          },
+          {
+            "label":"Recordtype",
+            "displayToAgent": false
+          },
+          {
+            "label":"Related Case",
+            "displayToAgent": false,
+            "transcriptFields": ["case_id__c"]
+          },
+          {
+            "label":"First Name",
+            "displayToAgent": false
+          },
+          {
+            "label":"Last Name",
+            "displayToAgent": false
+          },
+          {
+            "label":"ChatButtonId",
+            "displayToAgent": false
+          }
+          ];
+
+          embedded_svc.settings.extraPrechatInfo = [{
+            "entityFieldMaps": [{
+            "doCreate":false,
+            "doFind":false,
+            "fieldName":"LastName",
+            "isExactMatch":true,
+            "label":"Last Name"
+            }, {
+            "doCreate":false,
+            "doFind":false,
+            "fieldName":"FirstName",
+            "isExactMatch":true,
+            "label":"**First Name (Required)"
+            }],
+            "entityName":"Contact"
+            }
+         , {
+            "entityName": "Case",
+            "showOnCreate": true,
+            "entityFieldMaps": [{
+                "isExactMatch": true,
+                "fieldName": "CaseNumber",
+                "doCreate": false,
+                "doFind": true,
+                "label": "Related Case"
+              },
+              {
+                "isExactMatch": false,
+                "fieldName": "Status",
+                "doCreate": true,
+                "doFind": false,
+                "label": "Status"
+              },
+              {
+              "isExactMatch": false,
+              "fieldName": "Origin",
+              "doCreate": true,
+              "doFind": false,
+              "label": "Origin"
+              },
+              {
+             "isExactMatch": false,
+             "fieldName": "RecordtypeId",
+             "doCreate": true,
+             "doFind": false,
+             "label": "Recordtype"
+            },
+            {
+                "isExactMatch": false,
+                "fieldName": "Chat_User_Identifier__c",
+                "doCreate": true,
+                "doFind": false,
+                "label": "User Contact ID"
+            }
+            ]
+          } 
+          ];
+
+          document.addEventListener(
+           "setCustomField",
+            function(event) {
+              embedded_svc.settings.extraPrechatFormDetails[2].value = event.detail.Product;
+              embedded_svc.settings.extraPrechatFormDetails[3].value = event.detail.Subject;
+              embedded_svc.settings.extraPrechatFormDetails[4].value = event.detail.Severity;
+              embedded_svc.settings.extraPrechatFormDetails[5].value = event.detail.Status;
+              embedded_svc.settings.extraPrechatFormDetails[6].value = event.detail.Origin;
+              embedded_svc.settings.extraPrechatFormDetails[7].value = event.detail.RecordTypeId;
+              embedded_svc.settings.extraPrechatFormDetails[8].value = event.detail.CaseNumber;
+              embedded_svc.settings.extraPrechatFormDetails[9].value = event.detail.FirstName;
+              embedded_svc.settings.extraPrechatFormDetails[10].value = event.detail.LastName;
+              embedded_svc.settings.extraPrechatFormDetails[11].value = event.detail.ChatButtonId;
+              console.log('extra button ChatButtonId : '+embedded_svc.settings.extraPrechatFormDetails[11].value);
+              event.detail.callback();
+            },
+            false
+           );
+        if(ppopUpChat){ embedded_svc.addEventHandler("onSettingsCallCompleted", () => {embedded_svc.inviteAPI.inviteButton.acceptInvite();});
+        embedded_svc.init(
+           'https://blackbaud--dev.my.salesforce.com',
+			'https://dev-bbmarketplace.cs221.force.com/liveagent',
+            gslbBaseURL,
+            '00D8I0000004cnp',
+            'Default',
+            {
+                baseLiveAgentContentURL: 'https://c.la4-c1cs-ia4.salesforceliveagent.com/content',
+                deploymentId: pdeploymentId,
+				buttonId: '5733o000001Hirv',
+                baseLiveAgentURL: 'https://d.la4-c1cs-ia4.salesforceliveagent.com/chat',
+                eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I3o000000CaUfEAK_184f9f39a86',
+                isOfflineSupportEnabled: false
+            }
+        );
+
+    };
+    
+
+    if (!window.embedded_svc) {
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://blackbaud--dev.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+        s.onload = function() {
+		   var prodLst="Payment Services,JustGiving,Blackbaud Analytics,Financial Edge,FIMS,GIFTS,Blackbaud Grantmaking (formerly GIFTS Online),Blackbaud Outcomes,Education Management Solutions (including ON Suite),Billing Management,Luminate Online,Online Express,Raiser's Edge,Payment Services 1,JustGiving 1,Blackbaud Analytics 1,Financial Edge 1,FIMS 1,GIFTS 1,Blackbaud Grantmaking (formerly GIFTS Online) 1,Blackbaud Outcomes 1,Education Management Solutions (including ON Suite) 1,Billing Management 1,Luminate Online 1,Online Express 1,Raiser's Edge 1,Payment Services  2,JustGiving  2,Blackbaud Analytics  2,Financial Edge  2,FIMS  2,GIFTS  2,Blackbaud Grantmaking (formerly GIFTS Online)  2,Blackbaud Outcomes  2,Education Management Solutions (including ON Suite)  2,Billing Management  2,Luminate Online  2,Online Express  2,Raiser's Edge";
+
+		alert("Page is loaded in initializeEmbeddedServiceCall onload ");
+            initESW(null,'5720V00000158Lk','20202','dbcf7df4-d6b7-4296-8aaf-cbbf0610302f','Karya','Mert',prodLst,true,true,'5740');
+        };
+        document.body.appendChild(s);
+    } else {
+        initESW('https://service.force.com',deploymentId,siteid,bbauthid,firstname,lastName,prodLst,inBusinessHours,popUpChat,supportSite);
+    }
+
+
+
+    </Script>
+
+    </html>
