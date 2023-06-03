@@ -171,6 +171,7 @@ var initESW = function(gslbBaseURL,psiteid,pbbauthid,pfirstname,pLastName,pinBus
         var s = document.createElement('script');
         s.setAttribute('src', 'https://blackbaud.my.salesforce.com/embeddedservice/5.0/esw.min.js');
         s.onload = function() {
+		alert('in onload function Invoice and Billing');
             initESW(null,'53913','b380ab15-3ac2-4bcd-aeea-90fd6c4c27f4','V-Rishu','Jain',true,true,'BBUS');
         };
         document.body.appendChild(s);
