@@ -172,7 +172,7 @@ var initESW = function(gslbBaseURL,psiteid,pbbauthid,pfirstname,pLastName,pinBus
         s.setAttribute('src', 'https://blackbaud.my.salesforce.com/embeddedservice/5.0/esw.min.js');
         s.onload = function() {
 		alert('in onload function Invoice and Billing');
-            initESW(null,'95010','cc9ba477-265b-43b2-8aba-9456e9c4099a','Matt','',true,false,'BBE');
+            initESW(null,'95010','cc9ba477-265b-43b2-8aba-9456e9c4099a','Matt','',true,true,'BBE');
         };
         document.body.appendChild(s);
     } else {
